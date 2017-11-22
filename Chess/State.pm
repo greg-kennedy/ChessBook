@@ -299,13 +299,13 @@ sub check {
         if ($file > 0) {
           if ($rank > 0) {
             $p = $board->[$rank - 1][$file - 1]; $t = $p & TYPE_MASK;
-            return 1 if ($p && ! _is_my_piece($p, $turn) && ($t == ord 'K' || $t == ord 'Q' || $t == ord 'B' || $p == ord 'p'));
+            return 1 if ($p && ! _is_my_piece($p, $turn) && ($t == ord 'K' || $t == ord 'Q' || $t == ord 'B' || $p == ord 'P'));
           }
           $p = $board->[$rank][$file - 1]; $t = $p & TYPE_MASK;
           return 1 if ($p && ! _is_my_piece($p, $turn) && ($t == ord 'K' || $t == ord 'Q' || $t == ord 'R'));
           if ($rank < 7) {
             $p = $board->[$rank + 1][$file - 1]; $t = $p & TYPE_MASK;
-            return 1 if ($p && ! _is_my_piece($p, $turn) && ($t == ord 'K' || $t == ord 'Q' || $t == ord 'B' || $p == ord 'p'));
+            return 1 if ($p && ! _is_my_piece($p, $turn) && ($t == ord 'K' || $t == ord 'Q' || $t == ord 'B' || $p == ord 'P'));
           }
         }
         if ($rank > 0) {
@@ -319,13 +319,13 @@ sub check {
         if ($file < 7) {
           if ($rank > 0) {
             $p = $board->[$rank - 1][$file + 1]; $t = $p & TYPE_MASK;
-            return 1 if (($p && ! _is_my_piece($p, $turn)) && ($t == ord 'K' || $t == ord 'Q' || $t == ord 'B' || $p == ord 'P'));
+            return 1 if (($p && ! _is_my_piece($p, $turn)) && ($t == ord 'K' || $t == ord 'Q' || $t == ord 'B' || $p == ord 'p'));
           }
           $p = $board->[$rank][$file + 1]; $t = $p & TYPE_MASK;
           return 1 if (($p && ! _is_my_piece($p, $turn)) && ($t == ord 'K' || $t == ord 'Q' || $t == ord 'R'));
           if ($rank < 7) {
             $p = $board->[$rank + 1][$file + 1]; $t = $p & TYPE_MASK;
-            return 1 if (($p && ! _is_my_piece($p, $turn)) && ($t == ord 'K' || $t == ord 'Q' || $t == ord 'B' || $p == ord 'P'));
+            return 1 if (($p && ! _is_my_piece($p, $turn)) && ($t == ord 'K' || $t == ord 'Q' || $t == ord 'B' || $p == ord 'p'));
           }
         }
       
