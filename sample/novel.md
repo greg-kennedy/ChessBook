@@ -50,6 +50,7 @@ Generated on Wed Nov 22 10:50:05 2017.
 Harold and Maude sat across from each other at a square table.  Between them was a chess board.
 
 ![8/p4R2/2r4p/2p3kN/8/1P6/r1n3PP/4R2K w - - 1 1](./fig1.png "8/p4R2/2r4p/2p3kN/8/1P6/r1n3PP/4R2K w - - 1 1")
+
 **Initial Position**
 
 There was a White Rook at e1.
@@ -7927,4 +7928,5 @@ Of these options, the best move for Maude was a2a3.
 Harold moved his Rook from e1 to e5.
 
 ![8/p4R2/2r4p/2p1R1kN/8/1P6/r1n3PP/7K b - - 2 1](./fig2.png "8/p4R2/2r4p/2p1R1kN/8/1P6/r1n3PP/7K b - - 2 1")
+
 **Final Position**
