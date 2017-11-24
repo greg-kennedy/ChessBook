@@ -151,7 +151,7 @@ sub recurse {
     print $fh ".\n";
 
     if ($depth < $max_depth) {
-      print $fh ("\n" . ("#" x ($depth + 2)) . ' ' . color($state->{turn}) . ' ' . piece($move->[Chess::Move::FROM_PIECE]) . ' ' . $move->to_string . "\n");
+      print $fh ("\n" . ("#" x ($depth + 2)) . ' ' . color($state->{turn}) . ' ' . $move->to_string . "\n");
     }
 
     my $sub_best_value = recurse($fh, $state->make_move($move), $alpha, $beta, $depth + 1, $max_depth);
@@ -160,7 +160,7 @@ sub recurse {
     #  True alpha-beta would be <= but we will leave equals for dramatic effect.
     if ($state->{turn}) {
       # maxi node
-      if ($sub_best_value > $beta || (($sub_best_value == $beta) && chance(0.85))) {
+      if ($sub_best_value > $beta || (($sub_best_value == $beta) && chance(0.5))) {
         print $fh "This " . pick('line','path','route','sequence') . ' was ' . pick('disastrous','not as good','bad','worse','unsound') . ' for ' . pick(name($state->{turn}),color($state->{turn})) . ", so it was " . pick('abandoned','ignored','disregarded') . ".\n\n";
         return $beta;
       }
@@ -173,7 +173,7 @@ sub recurse {
     } else {
       # mini node
       #  True alpha-beta would be <= but we will leave equals for dramatic effect.
-      if ($sub_best_value < $alpha || (($sub_best_value == $alpha) && chance(0.85))) {
+      if ($sub_best_value < $alpha || (($sub_best_value == $alpha) && chance(0.5))) {
         print $fh "This " . pick('line','path','route','sequence') . ' was ' . pick('disastrous','not as good','bad','worse','unsound') . ' for ' . pick(name($state->{turn}),color($state->{turn})) . ", so it was " . pick('abandoned','ignored','disregarded') . ".\n\n";
         return $alpha;
       }
@@ -215,7 +215,7 @@ print $txt "* [Introduction](#introduction)\n";
 
 my @top_moves = $state->get_moves;
 for my $move (@top_moves) {
-  print $txt "* [White " . piece($move->[Chess::Move::FROM_PIECE]) . " " . $move->to_string . "](#white-" . lc(piece($move->[Chess::Move::FROM_PIECE])) . '-' . lc($move->to_string) . ")\n";
+  print $txt "* [White " . $move->to_string . "](#white-" . lc($move->to_string) . ")\n";
 }
 print $txt "* [Conclusion](#conclusion)\n\n";
 
@@ -226,7 +226,7 @@ print $txt name(0) . " and " . name(0x20) . " sat across from each other at a sq
 # render the pic
 my $fig1 = $state->get_fen;
 `./render.pl "$fig1" > fig1.png`;
-print $txt "![$fig1](./fig1.png \"$fig1\")\n\n**Initial Position**\n\n";
+print $txt "![$fig1](./fig1.png \"$fig1\")\n**Initial Position**\n\n";
 
 # Describe all pieces
 foreach my $rank (0 .. 7) {
@@ -250,7 +250,7 @@ my $beta = 100000;
 
 for my $move (@top_moves) {
   ### Try moves
-  print $txt "## White " . piece($move->[Chess::Move::FROM_PIECE]) . " " . $move->to_string . "\n";
+  print $txt "## White " . $move->to_string . "\n";
   print $txt name(0) . " considered moving " . owner_piece($move->[Chess::Move::FROM_PIECE]) .
     " from " . square($move->[Chess::Move::FROM_RANK], $move->[Chess::Move::FROM_FILE]) .
     " to " . square($move->[Chess::Move::TO_RANK], $move->[Chess::Move::TO_FILE]);
@@ -278,7 +278,7 @@ print $txt name(0) . " moved " . owner_piece($best_move->[Chess::Move::FROM_PIEC
 # render the pic
 my $fig2 = $state->make_move($best_move)->get_fen;
 `./render.pl "$fig2" > fig2.png`;
-print $txt "![$fig2](./fig2.png \"$fig2\")\n\n**Final Position**";
+print $txt "![$fig2](./fig2.png \"$fig2\")\n**Final Position**";
 
 close($txt);
 
