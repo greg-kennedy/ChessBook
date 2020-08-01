@@ -3,6 +3,11 @@ use strict;
 use warnings;
 use v5.010;
 
+## LOCAL MODULES
+# make local dir accessible for use statements
+use FindBin qw( $RealBin );
+use lib $RealBin;
+
 use Chess::State;
 use GD;
 

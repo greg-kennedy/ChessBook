@@ -8,6 +8,11 @@ use warnings;
 # Used for testing move-generation routines.
 use Time::HiRes qw/ clock /;
 
+## LOCAL MODULES
+# make local dir accessible for use statements
+use FindBin qw( $RealBin );
+use lib $RealBin;
+
 use Chess::State;
 
 # Some sample perft tests
