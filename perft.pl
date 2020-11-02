@@ -1,5 +1,4 @@
 #!/usr/bin/env perl
-use v5.10;
 use strict;
 use warnings;
 
@@ -70,16 +69,16 @@ rec_perft($state,$max_depth);
 my $end_time = clock;
 
 # print results
-say "Results (Elapsed " . ($end_time - $start_time) . " seconds)";
+print "Results (Elapsed " . ($end_time - $start_time) . " seconds)\n";
 for (my $i = 0; $i < scalar @count; $i ++)
 {
-  say "======================================================================";
-  say "	Depth $i:";
-  say "		nodes: " . ($count[$i]{nodes} || 0);
-  say "		captures: " . ($count[$i]{captures} || 0);
-  say "		ep: " . ($count[$i]{ep} || 0);
-  say "		castles: " . ($count[$i]{castles} || 0);
-  say "		promotions: " . ($count[$i]{promotions} || 0);
-  say "		checks: " . ($count[$i]{checks} || 0);
-  say "		checkmates: " . ($count[$i]{checkmates} || 0);
+  print "======================================================================\n";
+  print "	Depth $i:\n";
+  print "		nodes: " . ($count[$i]{nodes} || 0) . "\n";
+  print "		captures: " . ($count[$i]{captures} || 0) . "\n";
+  print "		ep: " . ($count[$i]{ep} || 0) . "\n";
+  print "		castles: " . ($count[$i]{castles} || 0) . "\n";
+  print "		promotions: " . ($count[$i]{promotions} || 0) . "\n";
+  print "		checks: " . ($count[$i]{checks} || 0) . "\n";
+  print "		checkmates: " . ($count[$i]{checkmates} || 0) . "\n";
 }

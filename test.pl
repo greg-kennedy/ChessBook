@@ -1,5 +1,4 @@
 #!/usr/bin/env perl
-use v5.10;
 use strict;
 use warnings;
 
@@ -14,7 +13,7 @@ use Chess::Move;
 ###########
 
 my $move = Chess::Move->new('a1b1');
-say $move->to_string;
+print $move->to_string . "\n";
 
 ###########
 
@@ -25,7 +24,7 @@ my $board2 = $board->make_move( ($board->get_moves)[0] );
 for (my $i = 0; $i < 2000; $i ++)
 {
   $board2 = $board2->make_move( ($board2->get_moves)[0] );
-  say $board2->get_fen;
+  print $board2->get_fen . "\n";
 }
 
-say $board->get_fen;
+print $board->get_fen . "\n";

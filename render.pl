@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use v5.010;
 
 ## LOCAL MODULES
 # make local dir accessible for use statements

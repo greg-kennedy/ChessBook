@@ -142,8 +142,8 @@ sub _rec_think {
   my $best_value;
 
   foreach my $move ($state->get_pseudo_moves) {
-    print ("-" x $depth);
-    print "> Trying " . $move->to_string . "\n";
+    #print ("-" x $depth);
+    #print "> Trying " . $move->to_string . "\n";
 
     my $new_state = $state->force_move($move);
     if (defined $new_state) {
@@ -164,26 +164,26 @@ sub _rec_think {
   if (!defined $best_value)
   {
     # We in check?
-    print ("-" x $depth);
-    print "> RESULT: ";
+    #print ("-" x $depth);
+    #print "> RESULT: ";
     if ($state->is_check) {
       if ($state->{turn}) {
         # checkmate, current player lost
-        print "CHECKMATE for Black.\n";
+        #print "CHECKMATE for Black.\n";
         return (undef, $piece_values{ord 'k'});
       } else {
-        print "CHECKMATE for White.\n";
+        #print "CHECKMATE for White.\n";
         return (undef, $piece_values{ord 'K'});
       }
     } else {
       # stalemate, hard 0
-      print "STALEMATE.\n";
+      #print "STALEMATE.\n";
       return (undef, 0);
     }
   }
 
-  print ("-" x $depth);
-  print "> RESULT: Best move for " . ($state->{turn} ? 'Black' : 'White') . " is " . $best_move->to_string . " (worth: " . $best_value . ")\n";
+  #print ("-" x $depth);
+  #print "> RESULT: Best move for " . ($state->{turn} ? 'Black' : 'White') . " is " . $best_move->to_string . " (worth: " . $best_value . ")\n";
 
   return ($best_move, $best_value);
 }

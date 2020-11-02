@@ -1,5 +1,4 @@
 #!/usr/bin/env perl
-use v5.10;
 use strict;
 use warnings;
 
@@ -33,7 +32,7 @@ while ($state->is_playable)
   if (! $state->{turn})
   {
     # Show prompt and get input from user
-#    say $engine->think->to_string;
+#    print $engine->think->to_string . "\n";
     print "> ";
     my $input = <STDIN>;
     chomp $input;
@@ -41,7 +40,7 @@ while ($state->is_playable)
     # Attempt to create a move object
     $move = eval { Chess::Move->new($input) };
     if (! defined $move) {
-      say "Error: " . $@;
+      print "Error: " . $@ . "\n";
       redo;
     }
   
@@ -49,16 +48,16 @@ while ($state->is_playable)
     # Computer's turn!
     $move = eval { $engine->think };
     if (! defined $move) {
-      say "Error: " . $@;
+      print "Error: " . $@ . "\n";
       redo;
     }
-    say "> " . $move->to_string;
+    print "> " . $move->to_string . "\n";
   }
 
   # Attempt to apply the move.
   my $new_state = eval { $state->make_move($move) };
   if (! defined $new_state) {
-    say "Error: " . $@;
+    print "Error: " . $@ . "\n";
     redo;
   }
 

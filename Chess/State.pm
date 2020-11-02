@@ -1,13 +1,12 @@
 package Chess::State;
 use strict;
 use warnings;
-use v5.010;
 
 =pod
 
 =head1 NAME
 
-Chess::State - an object that stores board state for a chess game
+Chess::State - an object that stores board and game state for a chess game
 
 =head1 SYNOPSIS
 
@@ -24,17 +23,11 @@ Internally, board state is kept as an 8x8 array of pieces.
 
 =head2 Members
 
-=over 12
-
 =item C<turn>
 
 Return true if it's Black's turn, false otherwise.
 
-=back
-
 =head2 Methods
-
-=over 12
 
 =item C<new>
 
@@ -70,8 +63,6 @@ move, and return a new State object with the updated board.
 Pretty-prints a board and available moves.
 
 This is mainly a debugging function.
-
-=back
 
 =head1 LICENSE
 
@@ -110,9 +101,7 @@ use constant {
 ##########################################################
 # BOARD STATE CLASS
 sub new {
-  my $class = shift;
-
-  my $initialFEN = shift;
+  my ($class, $initialFEN) = @_;
 
   # empty object with defaults
   my %self;
@@ -134,20 +123,20 @@ sub pp {
   my $self = shift;
 
   # header
-  say $self->get_fen;
+  print $self->get_fen . "\n";
   # check for check
-  say ($self->is_check ? "IN CHECK" : "(not in check)");
+  print ($self->is_check ? "IN CHECK\n" : "(not in check)\n");
   # board image
-  say '+-+-+-+-+-+-+-+-+';
+  print "+-+-+-+-+-+-+-+-+\n";
   for my $rank (0 .. 7) {
     for my $file (0 .. 7) {
       my $piece = $self->{board}[7 - $rank][$file];
       printf("|%1c", ($piece ? $piece : ord(($file + ($rank % 2)) % 2 ? '.' : ' ')));
     }
     printf("|%d\n", 8 - $rank);
-    say "+-+-+-+-+-+-+-+-+";
+    print "+-+-+-+-+-+-+-+-+\n";
   }
-  say " a b c d e f g h";
+  print " a b c d e f g h\n";
 
   # list all possible moves
   foreach my $move ($self->get_moves) {
@@ -190,6 +179,11 @@ sub force_move {
 
   # Assume the move is good.
   my $move = shift;
+
+  # lookup from_piece if not exists
+  if (! $move->[Chess::Move::FROM_PIECE]) {
+    $move->[Chess::Move::FROM_PIECE] = $self->{board}[$move->[Chess::Move::FROM_RANK]][$move->[Chess::Move::TO_RANK]];
+  }
 
   # Piece was not a promotion, so use the existing one from_ position
   my $piece = $move->[Chess::Move::PROMOTION_PIECE] || $move->[Chess::Move::FROM_PIECE];
@@ -245,7 +239,7 @@ sub force_move {
 sub get_moves {
   my $self = shift;
   if (!defined $self->{move_list}) {
-    #say "move_list not defined, calling and testing.";
+    #print "move_list not defined, calling and testing.\n";
     $self->{move_list} = [ grep { defined ($self->force_move($_)) } $self->get_pseudo_moves ]
   }
   return @{$self->{move_list}};
@@ -727,7 +721,7 @@ sub set_fen {
     }
   }
   # EP
-  $ep = lc($ep // '-');
+  $ep = lc($ep || '-');
   if ($ep !~ m/^[a-h][1-8]$/) {
     $self->{ep} = undef;
   } else {
